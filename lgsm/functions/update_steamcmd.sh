@@ -27,11 +27,11 @@ fn_update_steamcmd_dl(){
 
 	cd "${steamcmddir}" || exit
 	if [ "${engine}" == "goldsource" ]; then
-		${unbuffer} ./steamcmd.sh +login "${steamuser}" "${steampass}" +force_install_dir "${serverfiles}" +app_set_config 90 mod "${appidmod}" +app_update "${appid}" "${branch}" +quit | tee -a "${lgsmlog}"
+		${unbuffer} ./steamcmd.sh +login "${steamuser}" "${steampass}" +force_install_dir "${serverfiles}" +app_set_config 90 mod "${appidmod}" +app_update "${appid}" ${branch} +quit | tee -a "${lgsmlog}"
 	else
-		${unbuffer} ./steamcmd.sh +login "${steamuser}" "${steampass}" +force_install_dir "${serverfiles}" +app_update "${appid}" "${branch}" +quit | tee -a "${lgsmlog}"
+		${unbuffer} ./steamcmd.sh +login "${steamuser}" "${steampass}" +force_install_dir "${serverfiles}" +app_update "${appid}" ${branch} +quit | tee -a "${lgsmlog}"
 		if [ "${gamename}" == "Classic Offensive" ]; then
-			${unbuffer} ./steamcmd.sh +login "${steamuser}" "${steampass}" +force_install_dir "${serverfiles}" +app_update "${appid_co}" "${branch}" +quit | tee -a "${lgsmlog}"
+			${unbuffer} ./steamcmd.sh +login "${steamuser}" "${steampass}" +force_install_dir "${serverfiles}" +app_update "${appid_co}" ${branch} +quit | tee -a "${lgsmlog}"
 		fi
 	fi
 
@@ -157,7 +157,7 @@ fn_update_steamcmd_check(){
 	fi
 
 	# Set branch for updateinfo
-	IFS=' ' read -ra branchsplits <<< "${branch}"
+	IFS=' ' read -ra branchsplits <<< ${branch}
 	if [ "${#branchsplits[@]}" -gt 1 ]; then
 		branchname="${branchsplits[1]}"
 	else
