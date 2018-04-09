@@ -19,10 +19,10 @@ fn_deps_detector(){
 		deptocheck="${javaversion}"
 		unset javacheck
 	elif [ -n "$(command -v apt 2>/dev/null)" ]; then
-		dpkg-query -W -f='${Status}' ${deptocheck} 2>/dev/null | grep -q -P '^install ok installed'
+		dpkg-query -W -f='${Status}' "${deptocheck}" 2>/dev/null | grep -q -P '^install ok installed'
 		depstatus=$?
 	elif [ -n "$(command -v yum 2>/dev/null)" ]; then
-		yum -q list installed ${deptocheck} > /dev/null 2>&1
+		yum -q list installed "${deptocheck}" > /dev/null 2>&1
 		depstatus=$?
 	fi
 
@@ -91,10 +91,10 @@ fn_found_missing_deps(){
 			echo -en "   \r"
 			if [ -n "$(command -v dpkg-query 2>/dev/null)" ]; then
 				cmd="sudo dpkg --add-architecture i386; sudo apt update; sudo apt -y install ${array_deps_missing[@]}"
-				eval ${cmd}
+				eval "${cmd}"
 			elif [ -n "$(command -v yum 2>/dev/null)" ]; then
 				cmd="sudo yum -y install ${array_deps_missing[@]}"
-				eval ${cmd}
+				eval "${cmd}"
 			fi
 			if [ $? != 0 ]; then
 				fn_print_failure_nl "Unable to install dependencies"

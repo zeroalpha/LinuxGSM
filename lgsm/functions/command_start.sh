@@ -169,7 +169,8 @@ sleep 1
 			cat "${lgsmlogdir}/.${servicename}-tmux-error.tmp" | tee -a "${lgsmlog}"
 
 			# Detected error https://linuxgsm.com/support
-			if [ $(grep -c "Operation not permitted" "${lgsmlogdir}/.${servicename}-tmux-error.tmp") ]; then
+			if grep -c "Operation not permitted" "${lgsmlogdir}/.${servicename}-tmux-error.tmp"
+			then
 			echo ""
 			echo "Fix"
 			echo "================================="

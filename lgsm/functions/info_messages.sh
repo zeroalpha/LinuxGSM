@@ -479,7 +479,7 @@ fn_info_logs(){
 
 	if [ -n "${lgsmlog}" ]; then
 		echo -e "\nScript log\n==================="
-		if [ ! "$(ls -A ${lgsmlogdir})" ]; then
+		if [ ! "$(ls -A "${lgsmlogdir}")" ]; then
 			echo "${lgsmlogdir} (NO LOG FILES)"
 		elif [ ! -s "${lgsmlog}" ]; then
 			echo "${lgsmlog} (LOG FILE IS EMPTY)"
@@ -492,7 +492,7 @@ fn_info_logs(){
 
 	if [ -n "${consolelog}" ]; then
 		echo -e "\nConsole log\n===================="
-		if [ ! "$(ls -A ${consolelogdir})" ]; then
+		if [ ! "$(ls -A "${consolelogdir}")" ]; then
 			echo "${consolelogdir} (NO LOG FILES)"
 		elif [ ! -s "${consolelog}" ]; then
 			echo "${consolelog} (LOG FILE IS EMPTY)"
@@ -505,7 +505,7 @@ fn_info_logs(){
 
 	if [ -n "${gamelogdir}" ]; then
 		echo -e "\nServer log\n==================="
-		if [ ! "$(ls -A ${gamelogdir})" ]; then
+		if [ ! "$(ls -A "${gamelogdir}")" ]; then
 			echo "${gamelogdir} (NO LOG FILES)"
 		else
 			echo "${gamelogdir}"

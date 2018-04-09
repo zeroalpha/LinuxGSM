@@ -44,7 +44,7 @@ fn_stop_graceful_cmd(){
 	fn_print_dots "Graceful: sending \"${1}\""
 	fn_script_log_info "Graceful: sending \"${1}\""
 	# sends specific stop command
-	tmux send -t="${servicename}" ${1} ENTER > /dev/null 2>&1
+	tmux send -t="${servicename}" "${1}" ENTER > /dev/null 2>&1
 	# waits up to given seconds giving the server time to shutdown gracefully
 	for ((seconds=1; seconds<=${2}; seconds++)); do
 		check_status.sh
@@ -218,7 +218,7 @@ fn_stop_ark(){
 
 	if [ "${#queryport}" -gt 0 ] ; then
 		for (( pidcheck=0 ; pidcheck < ${maxpiditer} ; pidcheck++ )) ; do
-			pid=$(netstat -nap 2>/dev/null | grep ^udp[[:space:]] |\
+			pid=$(netstat -nap 2>/dev/null | grep "^udp[[:space:]]" |\
 				grep ":${queryport}[[:space:]]" | rev | awk '{print $1}' |\
 				rev | cut -d\/ -f1)
 			#

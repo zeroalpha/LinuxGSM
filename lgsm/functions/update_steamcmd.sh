@@ -21,17 +21,17 @@ fn_update_steamcmd_dl(){
 
 	# Detects if unbuffer command is available for 32 bit distributions only.
 	info_distro.sh
-	if [ $(command -v stdbuf) ]&&[ "${arch}" != "x86_64" ]; then
+	if [ "$(command -v stdbuf)" ]&&[ "${arch}" != "x86_64" ]; then
 		unbuffer="stdbuf -i0 -o0 -e0"
 	fi
 
-	cd "${steamcmddir}"
+	cd "${steamcmddir}" || exit
 	if [ "${engine}" == "goldsource" ]; then
-		${unbuffer} ./steamcmd.sh +login "${steamuser}" "${steampass}" +force_install_dir "${serverfiles}" +app_set_config 90 mod ${appidmod} +app_update "${appid}" ${branch} +quit | tee -a "${lgsmlog}"
+		${unbuffer} ./steamcmd.sh +login "${steamuser}" "${steampass}" +force_install_dir "${serverfiles}" +app_set_config 90 mod "${appidmod}" +app_update "${appid}" "${branch}" +quit | tee -a "${lgsmlog}"
 	else
-		${unbuffer} ./steamcmd.sh +login "${steamuser}" "${steampass}" +force_install_dir "${serverfiles}" +app_update "${appid}" ${branch} +quit | tee -a "${lgsmlog}"
+		${unbuffer} ./steamcmd.sh +login "${steamuser}" "${steampass}" +force_install_dir "${serverfiles}" +app_update "${appid}" "${branch}" +quit | tee -a "${lgsmlog}"
 		if [ "${gamename}" == "Classic Offensive" ]; then
-			${unbuffer} ./steamcmd.sh +login "${steamuser}" "${steampass}" +force_install_dir "${serverfiles}" +app_update "${appid_co}" ${branch} +quit | tee -a "${lgsmlog}"
+			${unbuffer} ./steamcmd.sh +login "${steamuser}" "${steampass}" +force_install_dir "${serverfiles}" +app_update "${appid_co}" "${branch}" +quit | tee -a "${lgsmlog}"
 		fi
 	fi
 

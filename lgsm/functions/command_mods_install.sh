@@ -16,7 +16,7 @@ fn_print_header
 
 # Displays a list of installed mods
 fn_mods_installed_list
-if [ ${installedmodscount} -gt 0 ]; then
+if [ "${installedmodscount}" -gt "0" ]; then
 	echo "Installed addons/mods"
 	echo "================================="
 	# Go through all available commands, get details and display them to the user

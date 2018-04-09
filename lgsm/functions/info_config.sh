@@ -909,16 +909,16 @@ fn_info_config_squad(){
 		servername="${unavailable}"
 		maxplayers="${unavailable}"
 	else
-		servername="$(cat ${servercfgfullpath} | grep "ServerName=" | sed -e 's/^[ \t]*//g' -e '/^#/d' -e 's/ServerName//g' | tr -d '=\";,:' | sed -e 's/^[ \t]*//' -e 's/[ \t]*$//')"
-		maxplayers="$(cat ${servercfgfullpath} | grep "MaxPlayers=" | tr -cd '[:digit:]')"
+		servername="$(grep "ServerName=" "${servercfgfullpath}" | sed -e 's/^[ \t]*//g' -e '/^#/d' -e 's/ServerName//g' | tr -d '=\";,:' | sed -e 's/^[ \t]*//' -e 's/[ \t]*$//')"
+		maxplayers="$(grep "MaxPlayers=" "${servercfgfullpath}" | tr -cd '[:digit:]')"
 	fi
 
 	if [ ! -f "${servercfgdir}/Rcon.cfg" ]; then
 		rconport=${unavailable}
 		rconpassword=${unavailable}
 	else
-		rconport=$(cat ${servercfgdir}/Rcon.cfg | grep "Port=" | tr -cd '[:digit:]')
-		rconpassword=$(cat ${servercfgdir}/Rcon.cfg | grep "Password=" | sed -e 's/^[ \t]*//g' -e '/^\//d' -e 's/Password//g' | tr -d '=\";,:' | sed -e 's/^[ \t]*//' -e 's/[ \t]*$//')
+		rconport=$(grep "Port=" "${servercfgdir}/Rcon.cfg" | tr -cd '[:digit:]')
+		rconpassword=$(grep "Password=" "${servercfgdir}/Rcon.cfg" | sed -e 's/^[ \t]*//g' -e '/^\//d' -e 's/Password//g' | tr -d '=\";,:' | sed -e 's/^[ \t]*//' -e 's/[ \t]*$//')
 	fi
 
 	rconport=${rconport:-"0"}

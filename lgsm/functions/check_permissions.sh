@@ -9,17 +9,17 @@ local commandname="CHECK"
 
 fn_check_ownership(){
 	if [ -f "${rootdir}/${selfname}" ]; then
-		if [ $(find "${rootdir}/${selfname}" -not -user $(whoami)|wc -l) -ne "0" ]; then
+		if [ "$(find "${rootdir}/${selfname}" -not -user $(whoami)|wc -l)" -ne "0" ]; then
 			selfownissue=1
 		fi
 	fi
 	if [ -d "${functionsdir}" ]; then
-		if [ $(find "${functionsdir}" -not -user $(whoami)|wc -l) -ne "0" ]; then
+		if [ "$(find "${functionsdir}" -not -user $(whoami)|wc -l)" -ne "0" ]; then
 			funcownissue=1
 		fi
 	fi
 	if [ -d "${serverfiles}" ]; then
-		if [ $(find "${serverfiles}" -not -user $(whoami)|wc -l) -ne "0" ]; then
+		if [ "$(find "${serverfiles}" -not -user $(whoami)|wc -l)" -ne "0" ]; then
 			filesownissue=1
 		fi
 	fi
@@ -31,13 +31,13 @@ fn_check_ownership(){
 		{
 			echo -e "User\tGroup\tFile\n"
 			if [ "${selfownissue}" == "1" ]; then
-				find "${rootdir}/${selfname}" -not -user $(whoami) -printf "%u\t\t%g\t%p\n"
+				find "${rootdir}/${selfname}" -not -user "$(whoami)" -printf "%u\t\t%g\t%p\n"
 			fi
 			if [ "${funcownissue}" == "1" ]; then
-				find "${functionsdir}" -not -user $(whoami) -printf "%u\t\t%g\t%p\n"
+				find "${functionsdir}" -not -user "$(whoami)" -printf "%u\t\t%g\t%p\n"
 			fi
 			if [ "${filesownissue}" == "1"  ]; then
-				find "${serverfiles}" -not -user $(whoami) -printf "%u\t\t%g\t%p\n"
+				find "${serverfiles}" -not -user "$(whoami)" -printf "%u\t\t%g\t%p\n"
 			fi
 
 		} | column -s $'\t' -t | tee -a "${lgsmlog}"
@@ -54,7 +54,7 @@ fn_check_ownership(){
 
 fn_check_permissions(){
 	if [ -d "${functionsdir}" ]; then
-		if [ $(find "${functionsdir}" -type f -not -executable|wc -l) -ne "0" ]; then
+		if [ "$(find "${functionsdir}" -type f -not -executable|wc -l)" -ne "0" ]; then
 			fn_print_fail_nl "Permissions issues found"
 			fn_script_log_fatal "Permissions issues found"
 			fn_print_information_nl "The following files are not executable:"

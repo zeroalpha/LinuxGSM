@@ -19,7 +19,7 @@ fn_validation(){
 	fn_script_log_info "Validating files: SteamCMD"
 	sleep 1
 
-	cd "${steamcmddir}"
+	cd "${steamcmddir}" || exit
 	# Detects if unbuffer command is available for 32 bit distributions only.
 	info_distro.sh
 	if [ "$(command -v stdbuf)" ]&&[ "${arch}" != "x86_64" ]; then
@@ -27,9 +27,9 @@ fn_validation(){
 	fi
 
 	if [ "${engine}" == "goldsource" ]; then
-		${unbuffer} ./steamcmd.sh +login "${steamuser}" "${steampass}" +force_install_dir "${serverfiles}" +app_set_config 90 mod ${appidmod} +app_update "${appid}" ${branch} +app_update "${appid}" ${branch} validate +quit| tee -a "${lgsmlog}"
+		${unbuffer} ./steamcmd.sh +login "${steamuser}" "${steampass}" +force_install_dir "${serverfiles}" +app_set_config 90 mod "${appidmod}" +app_update "${appid}" "${branch}" +app_update "${appid}" "${branch}" validate +quit| tee -a "${lgsmlog}"
 	else
-		${unbuffer} ./steamcmd.sh +login "${steamuser}" "${steampass}" +force_install_dir "${serverfiles}" +app_update "${appid}" ${branch} validate +quit| tee -a "${lgsmlog}"
+		${unbuffer} ./steamcmd.sh +login "${steamuser}" "${steampass}" +force_install_dir "${serverfiles}" +app_update "${appid}" "${branch}" validate +quit| tee -a "${lgsmlog}"
 	fi
 	if [ $? != 0 ]; then
 		fn_print_fail_nl "Validating files: SteamCMD"

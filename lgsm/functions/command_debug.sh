@@ -40,7 +40,7 @@ if [ -n "${glibcrequired}" ]; then
 			:
 	elif [ "${glibcrequired}" == "UNKNOWN" ]; then
 		echo -e "${blue}GLIBC required:\t${red}${glibcrequired}"
-	elif [ "$(printf '%s\n'${glibcrequired}'\n' ${glibcversion} | sort -V | head -n 1)" != "${glibcrequired}" ]; then
+	elif [ "$(printf '%s\n'${glibcrequired}'\n' "${glibcversion}" | sort -V | head -n 1)" != "${glibcrequired}" ]; then
 		if [ "${glibcfix}" == "yes" ]; then
 			echo -e "${blue}GLIBC required:\t${red}${glibcrequired} ${default}(${green}Using GLIBC fix${default})"
 		else
@@ -95,16 +95,16 @@ fn_script_log_info "${rootdir}/${lockselfname}"
 # trap to remove lockfile on quit.
 trap fn_lockfile_trap INT
 
-cd "${executabledir}"
+cd "${executabledir}" || exit
 if [ "${engine}" == "source" ]||[ "${engine}" == "goldsource" ]; then
 	${executable} ${parms} -debug
 elif [ "${engine}" == "realvirtuality" ]; then
 	# Arma3 requires semicolons in the module list, which need to
 	# be escaped for regular (tmux) loading, but need to be
 	# stripped when loading straight from the console.
-	${executable} ${parms//\\;/;}
+	"${executable}" "${parms//\\;/;}"
 else
-	${executable} ${parms}
+	"${executable}" "${parms}"
 fi
 
 fn_print_dots "Stopping debug"

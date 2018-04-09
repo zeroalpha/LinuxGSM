@@ -75,7 +75,7 @@ fi
 # Check and update functions
 if [ -n "${functionsdir}" ]; then
 	if [ -d "${functionsdir}" ]; then
-		cd "${functionsdir}"
+		cd "${functionsdir}" || exit
 		for functionfile in *
 		do
 			echo -ne "    checking function ${functionfile}...\c"
@@ -97,7 +97,7 @@ if [ -n "${functionsdir}" ]; then
 			elif [ "${function_file_diff}" != "" ]; then
 				fn_print_update_eol_nl
 				fn_script_log_info "checking function ${functionfile}: UPDATE"
-				rm -rf "${functionsdir}/${functionfile}"
+				rm -rf "${functionsdir:?}/${functionfile}"
 				fn_update_function
 			else
 				fn_print_ok_eol_nl

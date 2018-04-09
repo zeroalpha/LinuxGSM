@@ -19,7 +19,7 @@ echo ""
 if [ -z "${autoinstall}" ]; then
 	echo "Once you have the key enter it below"
 	echo -n "KEY: "
-	read CODE
+	read -r CODE
 	echo ""\""CDKey"\""="\""${CODE}"\""" > "${systemdir}/cdkey"
 	if [ -f "${systemdir}/cdkey" ]; then
 		fn_script_log_info "UT2K4 Server CD Key created"
