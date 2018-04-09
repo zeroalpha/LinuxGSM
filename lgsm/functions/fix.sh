@@ -11,18 +11,18 @@ local commandaction="Fix"
 # Messages that are displayed for some fixes
 fn_fix_msg_start(){
 	fn_print_dots "Applying ${fixname} fix: ${gamename}"
-	sleep 1
+	sleep 0.5
 	fn_print_info "Applying ${fixname} fix: ${gamename}"
 	fn_script_log_info "Applying ${fixname} fix: ${gamename}"
-	sleep 1
+	sleep 0.5
 }
 
 fn_fix_msg_start_nl(){
 	fn_print_dots "Applying ${fixname} fix: ${gamename}"
-	sleep 1
+	sleep 0.5
 	fn_print_info "Applying ${fixname} fix: ${gamename}"
 	fn_script_log_info "Applying ${fixname} fix: ${gamename}"
-	sleep 1
+	sleep 0.5
 }
 
 fn_fix_msg_end(){
@@ -66,7 +66,7 @@ if [ "${function_selfname}" == "command_install.sh" ]; then
 		echo ""
 		echo "Applying ${gamename} Server Fixes"
 		echo "================================="
-		sleep 1
+		sleep 0.5
 	if [ "${gamename}" == "Killing Floor" ]; then
 		fix_kf.sh
 	elif [ "${gamename}" == "Killing Floor 2" ]; then

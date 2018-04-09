@@ -77,7 +77,7 @@ fn_found_missing_deps(){
 		sleep 0.5
 		fn_print_error_nl "Checking dependencies: missing: ${red}${array_deps_missing[@]}${default}"
 		fn_script_log_error "Checking dependencies: missing: ${array_deps_missing[@]}"
-		sleep 1
+		sleep 0.5
 		sudo -v > /dev/null 2>&1
 		if [ $? -eq 0 ]; then
 			fn_print_information_nl "Automatically installing missing dependencies."

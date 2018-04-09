@@ -45,7 +45,7 @@ for queryattempt in {1..5}; do
 		fn_script_log_info "Querying port: ${querymethod}: ${ip}:${queryport} : ${queryattempt}: FAIL"
 		fn_print_fail "Querying port: ${querymethod}: ${ip}:${queryport} : ${totalseconds}/${queryattempt}: "
 		fn_print_fail_eol
-		sleep 1
+		sleep 0.5
 		# monitor try gamedig first then gsquery before restarting
 		if [ "${querymethod}" ==  "gsquery" ];then
 			if [ "${totalseconds}" -ge "59" ]; then
@@ -53,7 +53,7 @@ for queryattempt in {1..5}; do
 				fn_print_fail "Querying port: ${querymethod}: ${ip}:${queryport} : ${totalseconds}/${queryattempt}: "
 				fn_print_fail_eol_nl
 				fn_script_log_error "Querying port: ${querymethod}: ${ip}:${queryport} : ${queryattempt}: FAIL"
-				sleep 1
+				sleep 0.5
 
 				# Send alert if enabled
 				alert="restartquery"
@@ -95,7 +95,7 @@ fn_monitor_check_update(){
 	if [ "$(ps -ef|grep "${selfname} update"|grep -v grep|wc -l)" != "0" ]; then
 		fn_print_error_nl "SteamCMD is currently checking for updates"
 		fn_script_log_error "SteamCMD is currently checking for updates"
-		sleep 1
+		sleep 0.5
 		core_exit.sh
 	fi
 }
@@ -104,7 +104,7 @@ fn_monitor_check_session(){
 	fn_print_dots "Checking session: "
 	fn_print_checking_eol
 	fn_script_log_info "Checking session: CHECKING"
-	sleep 1
+	sleep 0.5
 	if [ "${status}" != "0" ]; then
 		fn_print_ok "Checking session: "
 		fn_print_ok_eol_nl
@@ -122,10 +122,10 @@ fn_monitor_check_session(){
 		alert="restart"
 		alert.sh
 		fn_script_log_info "Monitor is starting ${servername}"
-		sleep 1
+		sleep 0.5
 		command_restart.sh
 	fi
-	sleep 1
+	sleep 0.5
 }
 
 fn_monitor_query(){
@@ -170,7 +170,7 @@ fn_monitor_query_telnet(){
 
 monitorflag=1
 fn_print_dots "${servername}"
-sleep 1
+sleep 0.5
 check.sh
 logs.sh
 info_config.sh

@@ -11,7 +11,7 @@ local function_selfname="$(basename "$(readlink -f "${BASH_SOURCE[0]}")")"
 echo ""
 echo "Enter ${gamename} CD Key"
 echo "================================="
-sleep 1
+sleep 0.5
 echo "To get your server listed on the Master Server list"
 echo "you must get a free CD key. Get a key here:"
 echo "https://forums.unrealtournament.com/utserver/cdkey.php?2004"

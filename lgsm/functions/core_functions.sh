@@ -346,6 +346,11 @@ functionfile="${FUNCNAME}"
 fn_fetch_function
 }
 
+fix_ut3.sh(){
+functionfile="${FUNCNAME}"
+fn_fetch_function
+}
+
 fix_rust.sh(){
 functionfile="${FUNCNAME}"
 fn_fetch_function

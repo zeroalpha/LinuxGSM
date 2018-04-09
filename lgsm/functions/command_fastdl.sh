@@ -271,7 +271,7 @@ fn_fastdl_gmod(){
 		fi
 		# Clear addons directory in fastdl
 		echo -en "clearing addons dir from fastdl dir..."
-		sleep 1
+		sleep 0.5
 		rm -R "${fastdldir:?}/addons"
 		exitcode=$?
 		if [ ${exitcode} -ne 0 ]; then
@@ -286,7 +286,7 @@ fn_fastdl_gmod(){
 	# Correct content that may be into a lua directory by mistake like some darkrpmodification addons
 	if [ -d "${fastdldir}/lua" ]; then
 		echo -en "correcting DarkRP files..."
-		sleep 2
+		sleep 1
 		cp -Rf "${fastdldir}/lua/"* "${fastdldir}"
 		exitcode=$?
 		if [ ${exitcode} -ne 0 ]; then

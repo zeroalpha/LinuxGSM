@@ -15,16 +15,16 @@ fn_start_teamspeak3(){
 		fn_script_log_warn "${servercfgfullpath} is missing"
 		echo  "	* Creating blank ${servercfg}"
 		fn_script_log_info "Creating blank ${servercfg}"
-		sleep 2
+		sleep 1
 		echo  "	* ${servercfg} can remain blank by default."
 		fn_script_log_info "${servercfgfullpath} can remain blank by default."
-		sleep 2
+		sleep 1
 		echo  "	* ${servercfg} is located in ${servercfgfullpath}."
 		fn_script_log_info "${servercfg} is located in ${servercfgfullpath}."
 		sleep 5
 		touch "${servercfgfullpath}"
 	fi
-	sleep 1
+	sleep 0.5
 	check_status.sh
 	if [ "${status}" != "0" ]; then
 		fn_print_info_nl "${servername} is already running"
@@ -52,7 +52,7 @@ fn_start_teamspeak3(){
 	else
 		./ts3server_startscript.sh start inifile="${servercfgfullpath}" > /dev/null 2>&1
 	fi
-	sleep 1
+	sleep 0.5
 	check_status.sh
 	if [ "${status}" == "0" ]; then
 		fn_print_fail_nl "Unable to start ${servername}"
@@ -148,14 +148,14 @@ if [ "${consolelogging}" == "off" ]; then
 	echo "Console logging disabled by user" >> "${consolelog}"
 	fn_script_log_info "Console logging disabled by user"
 fi
-sleep 1
+sleep 0.5
 
 	# If the server fails to start
 	check_status.sh
 	if [ "${status}" == "0" ]; then
 		fn_print_fail_nl "Unable to start ${servername}"
 		fn_script_log_fatal "Unable to start ${servername}"
-		sleep 1
+		sleep 0.5
 		if [ -s "${lgsmlogdir}/.${servicename}-tmux-error.tmp" ]; then
 			fn_print_fail_nl "Unable to start ${servername}: Tmux error:"
 			fn_script_log_fatal "Unable to start ${servername}: Tmux error:"
@@ -207,7 +207,7 @@ sleep 1
 }
 
 fn_print_dots "${servername}"
-sleep 1
+sleep 0.5
 check.sh
 fix.sh
 info_config.sh
