@@ -77,5 +77,7 @@ if [ "${function_selfname}" == "command_install.sh" ]; then
 		fix_ut2k4.sh
 	elif [ "${gamename}" == "Unreal Tournament" ]; then
 		fix_ut.sh
+	elif [ "${gamename}" == "Unreal Tournament 3" ]; then
+		fix_ut3.sh
 	fi
 fi
