@@ -717,17 +717,6 @@ echo "================="
 grep functionfile= "${TRAVIS_BUILD_DIR}/dev-debug.log"| sed 's/functionfile=//g'
 
 echo ""
-echo "Inserting IP address"
-echo "================================="
-echo "Description:"
-echo "Inserting Travis IP in to config."
-echo "Allows monitor to work"
-travisip=$(ip -o -4 addr|grep eth0|awk '{print $4}'|grep -oe '\([0-9]\{1,3\}\.\?\)\{4\}'|grep -v 127.0.0)
-echo "ip=${travisip}" >> "${configdirserver}/common.cfg"
-cat "${configdirserver}/common.cfg"
-echo "IP: ${travisip}"
-
-echo ""
 echo "5.1 - monitor - online"
 echo "================================="
 echo "Description:"
@@ -785,32 +774,6 @@ fn_test_result_fail
 echo "run order"
 echo "================="
 grep functionfile= "${TRAVIS_BUILD_DIR}/dev-debug.log"| sed 's/functionfile=//g'
-
-echo ""
-echo "5.4 - monitor - query_gsquery.py failure"
-echo "================================="
-echo "Description:"
-echo "query_gsquery.py will fail to query port."
-echo "Command: ./fctrserver monitor"
-requiredstatus="ONLINE"
-fn_setstatus
-cp "${servercfgfullpath}" "config.lua"
-sed -i 's/[0-9]\+/0/' "${servercfgfullpath}"
-(
-	exec 5>"${TRAVIS_BUILD_DIR}/dev-debug.log"
-	BASH_XTRACEFD="5"
-	set -x
-	command_monitor.sh
-)
-fn_test_result_fail
-echo "run order"
-echo "================="
-grep functionfile= "${TRAVIS_BUILD_DIR}/dev-debug.log"| sed 's/functionfile=//g'
-
-echo ""
-fn_print_info_nl "Re-generating ${servercfg}."
-cp -v "config.lua" "${servercfgfullpath}"
-echo "================================="
 
 echo ""
 echo "6.0 - details"
