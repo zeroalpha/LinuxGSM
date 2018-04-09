@@ -2,7 +2,7 @@
 # Project: Game Server Managers - LinuxGSM
 # Author: Daniel Gibbs
 # License: MIT License, Copyright (c) 2017 Daniel Gibbs
-# Purpose: Travis CI Tests: Just Cause 2 | Linux Game Server Management Script
+# Purpose: Travis CI Tests: Factorio | Linux Game Server Management Script
 # Contributors: https://github.com/GameServerManagers/LinuxGSM/graphs/contributors
 # Documentation: https://github.com/GameServerManagers/LinuxGSM/wiki
 # Website: https://linuxgsm.com
@@ -180,8 +180,8 @@ fn_install_menu() {
 	options=$4
 	# Get menu command
 	for menucmd in whiptail dialog bash; do
-		if [ -x $(command -v ${menucmd}) ]; then
-			menucmd=$(command -v ${menucmd})
+		if [ -x "$(command -v "${menucmd}")" ]; then
+			menucmd=$(command -v "${menucmd}")
 			break
 		fi
 	done
@@ -459,8 +459,8 @@ echo "Server Tests"
 echo "Using: ${gamename}"
 echo "Testing Branch: $TRAVIS_BRANCH"
 echo "================================="
-echo ""
 
+echo ""
 echo "0.1 - Create log dir's"
 echo "================================="
 echo "Description:"
@@ -476,6 +476,7 @@ echo "run order"
 echo "================="
 grep functionfile= "${TRAVIS_BUILD_DIR}/dev-debug.log"| sed 's/functionfile=//g'
 
+echo ""
 echo "0.2 - Enable dev-debug"
 echo "================================="
 echo "Description:"
@@ -714,156 +715,6 @@ fn_test_result_pass
 echo "run order"
 echo "================="
 grep functionfile= "${TRAVIS_BUILD_DIR}/dev-debug.log"| sed 's/functionfile=//g'
-
-echo ""
-echo "4.2 - update  - change buildid"
-echo "================================="
-echo "Description:"
-echo "change the buildid tricking SteamCMD to update."
-echo "Command: ./fctrserver update"
-requiredstatus="OFFLINE"
-fn_setstatus
-fn_print_info_nl "changed buildid to 0."
-sed -i 's/[0-9]\+/0/' "${serverfiles}/steamapps/appmanifest_${appid}.acf"
-(
-	exec 5>"${TRAVIS_BUILD_DIR}/dev-debug.log"
-	BASH_XTRACEFD="5"
-	set -x
-	command_update.sh
-)
-fn_test_result_pass
-echo "run order"
-echo "================="
-grep functionfile= "${TRAVIS_BUILD_DIR}/dev-debug.log"| sed 's/functionfile=//g'
-
-echo ""
-echo "4.3 - update  - change buildid - online"
-echo "================================="
-echo "Description:"
-echo "change the buildid tricking SteamCMD to update server while already running."
-echo "Command: ./fctrserver update"
-requiredstatus="ONLINE"
-fn_setstatus
-fn_print_info_nl "changed buildid to 0."
-sed -i 's/[0-9]\+/0/' "${serverfiles}/steamapps/appmanifest_${appid}.acf"
-(
-	exec 5>"${TRAVIS_BUILD_DIR}/dev-debug.log"
-	BASH_XTRACEFD="5"
-	set -x
-	command_update.sh
-)
-fn_test_result_pass
-echo "run order"
-echo "================="
-grep functionfile= "${TRAVIS_BUILD_DIR}/dev-debug.log"| sed 's/functionfile=//g'
-
-echo ""
-echo "4.4 - update  - remove appmanifest file"
-echo "================================="
-echo "Description:"
-echo "removing appmanifest file will cause script to repair."
-echo "Command: ./fctrserver update"
-requiredstatus="OFFLINE"
-fn_setstatus
-fn_print_info_nl "removed appmanifest_${appid}.acf."
-rm --verbose "${serverfiles}/steamapps/appmanifest_${appid}.acf"
-(
-	exec 5>"${TRAVIS_BUILD_DIR}/dev-debug.log"
-	BASH_XTRACEFD="5"
-	set -x
-	command_update.sh
-)
-fn_test_result_pass
-echo "run order"
-echo "================="
-grep functionfile= "${TRAVIS_BUILD_DIR}/dev-debug.log"| sed 's/functionfile=//g'
-
-echo ""
-echo "4.5 - force-update"
-echo "================================="
-echo "Description:"
-echo "force-update bypassing update check."
-echo "Command: ./fctrserver force-update"
-requiredstatus="OFFLINE"
-fn_setstatus
-(
-	exec 5>"${TRAVIS_BUILD_DIR}/dev-debug.log"
-	BASH_XTRACEFD="5"
-	set -x
-	forceupdate=1;command_update.sh
-)
-fn_test_result_pass
-echo "run order"
-echo "================="
-grep functionfile= "${TRAVIS_BUILD_DIR}/dev-debug.log"| sed 's/functionfile=//g'
-
-echo ""
-echo "4.6 - force-update - online"
-echo "================================="
-echo "Description:"
-echo "force-update bypassing update check server while already running."
-echo "Command: ./fctrserver force-update"
-requiredstatus="ONLINE"
-fn_setstatus
-(
-	exec 5>"${TRAVIS_BUILD_DIR}/dev-debug.log"
-	BASH_XTRACEFD="5"
-	set -x
-	forceupdate=1;command_update.sh
-)
-fn_test_result_pass
-echo "run order"
-echo "================="
-grep functionfile= "${TRAVIS_BUILD_DIR}/dev-debug.log"| sed 's/functionfile=//g'
-
-echo ""
-echo "4.7 - validate"
-echo "================================="
-echo "Description:"
-echo "validate server files."
-echo "Command: ./fctrserver validate"
-requiredstatus="OFFLINE"
-fn_setstatus
-(
-	exec 5>"${TRAVIS_BUILD_DIR}/dev-debug.log"
-	BASH_XTRACEFD="5"
-	set -x
-	command_validate.sh
-)
-fn_test_result_pass
-echo "run order"
-echo "================="
-grep functionfile= "${TRAVIS_BUILD_DIR}/dev-debug.log"| sed 's/functionfile=//g'
-
-echo ""
-echo "4.8 - validate - online"
-echo "================================="
-echo "Description:"
-echo "validate server files while server already running."
-echo ""
-echo "Command: ./fctrserver validate"
-requiredstatus="ONLINE"
-fn_setstatus
-(
-	exec 5>"${TRAVIS_BUILD_DIR}/dev-debug.log"
-	BASH_XTRACEFD="5"
-	set -x
-	command_validate.sh
-)
-fn_test_result_pass
-echo "run order"
-echo "================="
-grep functionfile= "${TRAVIS_BUILD_DIR}/dev-debug.log"| sed 's/functionfile=//g'
-
-echo ""
-echo "Inserting IP address"
-echo "================================="
-echo "Description:"
-echo "Inserting Travis IP in to config."
-echo "Allows monitor to work"
-travisip=$(ip -o -4 addr|grep eth0|awk '{print $4}'|grep -oe '\([0-9]\{1,3\}\.\?\)\{4\}'|grep -v 127.0.0)
-sed -i "/BindIP/c\BindIP                      = \"${travisip}\"," "${serverfiles}/config.lua"
-echo "IP: ${travisip}"
 
 echo ""
 echo "5.1 - monitor - online"

@@ -8,8 +8,7 @@
 # Website: https://linuxgsm.com
 
 travistest="1"
-
-version="171014"
+version="180409"
 shortname="jc2"
 gameservername="jc2server"
 rootdir="$(dirname "$(readlink -f "${BASH_SOURCE[0]}")")"
@@ -181,8 +180,8 @@ fn_install_menu() {
 	options=$4
 	# Get menu command
 	for menucmd in whiptail dialog bash; do
-		if [ -x $(command -v ${menucmd}) ]; then
-			menucmd=$(command -v ${menucmd})
+		if [ -x "$(command -v "${menucmd}")" ]; then
+			menucmd=$(command -v "${menucmd}")
 			break
 		fi
 	done
@@ -460,8 +459,8 @@ echo "Server Tests"
 echo "Using: ${gamename}"
 echo "Testing Branch: $TRAVIS_BRANCH"
 echo "================================="
-echo ""
 
+echo ""
 echo "0.1 - Create log dir's"
 echo "================================="
 echo "Description:"
@@ -477,6 +476,7 @@ echo "run order"
 echo "================="
 grep functionfile= "${TRAVIS_BUILD_DIR}/dev-debug.log"| sed 's/functionfile=//g'
 
+echo ""
 echo "0.2 - Enable dev-debug"
 echo "================================="
 echo "Description:"

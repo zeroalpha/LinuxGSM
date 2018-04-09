@@ -8,8 +8,7 @@
 # Website: https://linuxgsm.com
 
 travistest="1"
-
-version="171014"
+version="180409"
 shortname="ts3"
 gameservername="ts3server"
 rootdir="$(dirname "$(readlink -f "${BASH_SOURCE[0]}")")"
@@ -137,7 +136,7 @@ fn_install_menu_bash() {
 	while read -r line || [[ -n "${line}" ]]; do
 		var=$(echo "${line}" | awk -F "," '{print $2 " - " $3}')
 		menu_options+=( "${var}" )
-	done <  $options
+	done <  ${options}
 	menu_options+=( "Cancel" )
 	select option in "${menu_options[@]}"; do
 		if [ -n "${option}" ] && [ "${option}" != "Cancel" ]; then
@@ -186,7 +185,7 @@ fn_install_menu() {
 			break
 		fi
 	done
-	case "$(basename ${menucmd})" in
+	case "$(basename "${menucmd}")" in
 		whiptail|dialog)
 			fn_install_menu_whiptail "${menucmd}" selection "${title}" "${caption}" "${options}" 40 80 30;;
 		*)
@@ -477,19 +476,24 @@ echo "run order"
 echo "================="
 grep functionfile= "${TRAVIS_BUILD_DIR}/dev-debug.log"| sed 's/functionfile=//g'
 
-echo""
+echo ""
 echo "0.2 - Enable dev-debug"
 echo "================================="
 echo "Description:"
 echo "Enable dev-debug"
 echo ""
-(command_dev_debug.sh)
+(
+	exec 5>"${TRAVIS_BUILD_DIR}/dev-debug.log"
+	BASH_XTRACEFD="5"
+	set -x
+	command_dev_debug.sh
+)
 fn_test_result_pass
 echo "run order"
 echo "================="
 grep functionfile= "${TRAVIS_BUILD_DIR}/dev-debug.log"| sed 's/functionfile=//g'
 
-echo""
+echo ""
 echo "1.0 - start - no files"
 echo "================================="
 echo "Description:"
@@ -595,6 +599,9 @@ fn_setstatus
 	command_start.sh
 )
 fn_test_result_fail
+echo "run order"
+echo "================="
+grep functionfile= "${TRAVIS_BUILD_DIR}/dev-debug.log"| sed 's/functionfile=//g'
 
 echo ""
 echo "3.3 - start - updateonstart"
