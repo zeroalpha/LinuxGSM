@@ -34,11 +34,11 @@ addons:
 
 jobs:
   include:
-    - stage: jobs
+    - stage: Just Cause 2
       script: bash tests/tests_jc2server.sh
-    - # stage name not required
+    - stage: TeamSpeak 3
       script: bash tests/tests_ts3server.sh
-    - # stage name not required
+    - stage: Factorio
       script: bash tests/tests_fctrserver.sh
-    - # stage name not required
+    - stage: Shellcheck
       script: bash tests/tests_shellcheck.sh
