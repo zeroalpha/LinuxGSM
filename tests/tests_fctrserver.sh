@@ -724,6 +724,7 @@ echo "Inserting Travis IP in to config."
 echo "Allows monitor to work"
 travisip=$(ip -o -4 addr|grep eth0|awk '{print $4}'|grep -oe '\([0-9]\{1,3\}\.\?\)\{4\}'|grep -v 127.0.0)
 echo "ip=${travisip}" >> "${configdirserver}/common.cfg"
+cat "${configdirserver}/common.cfg"
 echo "IP: ${travisip}"
 
 echo ""
