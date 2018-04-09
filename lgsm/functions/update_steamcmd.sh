@@ -80,7 +80,7 @@ fn_appmanifest_check(){
 			fn_update_request_log
 		fi
 	elif [ "${appmanifestfilewc}" -eq "0" ]; then
-		fn_print_error "No appmanifest_${appid}.acf found"
+		fn_print_error_nl "No appmanifest_${appid}.acf found"
 		fn_script_log_error "No appmanifest_${appid}.acf found"
 		sleep 1
 		fn_print_info_nl "Forcing update to correct issue"
@@ -90,7 +90,7 @@ fn_appmanifest_check(){
 		fn_update_request_log
 		fn_appmanifest_info
 		if [ "${appmanifestfilewc}" -eq "0" ]; then
-			fn_print_fatal "Still no appmanifest_${appid}.acf found"
+			fn_print_fail_nl "Still no appmanifest_${appid}.acf found"
 			fn_script_log_fatal "Still no appmanifest_${appid}.acf found"
 			core_exit.sh
 		fi
