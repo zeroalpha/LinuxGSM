@@ -35,6 +35,8 @@ addons:
 jobs:
   include:
     - stage: jobs
+      script: bash tests/tests_hl2d,server.sh
+    - # stage name not required
       script: bash tests/tests_jc2server.sh
     - # stage name not required
       script: bash tests/tests_fctrserver.sh
