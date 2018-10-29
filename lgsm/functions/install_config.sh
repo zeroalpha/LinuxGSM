@@ -547,6 +547,12 @@ elif [ "${gamename}" == "Terraria" ]; then
 	fn_fetch_default_config
 	fn_default_config_remote
 	fn_set_config_vars
+elif [ "${gamename}" == "The Specialists" ]; then
+	gamedirname="ts"
+	array_configs+=( server.cfg )
+	fn_fetch_default_config
+	fn_default_config_remote
+	fn_set_config_vars
 elif [ "${gamename}" == "Tower Unite" ]; then
 	gamedirname="TowerUnite"
 	fn_check_cfgdir
