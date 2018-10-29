@@ -4,7 +4,6 @@
 # Website: https://linuxgsm.com
 # Description: Installs server files.
 
-#1bf0efb20ef4d2a348e1d63058de7f4a
 
 local commandname="INSTALL"
 local commandaction="Install"
@@ -148,7 +147,7 @@ elif [ "${gamename}" == "Multi Theft Auto" ]; then
 elif [ "${gamename}" == "Factorio" ]; then
   update_factorio.sh
   install_factorio_save.sh
-elif [ -z "${appid}" ]||[ "${gamename}" == "GoldenEye: Source" ]||[ "${gamename}" == "Base Defense" ]||[ "${gamename}" == "BrainBread" ]||[ "${shortname}" == "ns" ]||[ "${shortname}" == "vs" ]; then
+elif [ -z "${appid}" ]||[ "${gamename}" == "GoldenEye: Source" ]||[ "${gamename}" == "Base Defense" ]||[ "${gamename}" == "BrainBread" ]||[ "${gamename}" == "The Specialists" ]||[ "${shortname}" == "ns" ]||[ "${shortname}" == "vs" ]; then
 	if [ "${gamename}" == "Unreal Tournament" ]; then
 		install_unreal_tournament_eula.sh
 	fi
