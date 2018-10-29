@@ -25,7 +25,7 @@ fn_fetch_default_config(){
 	echo "default configs from https://github.com/GameServerManagers/Game-Server-Configs"
 	sleep 0.5
 	mkdir -p "${lgsmdir}/config-default/config-game"
-	githuburl="https://raw.githubusercontent.com/GameServerManagers/Game-Server-Configs/master"
+	githuburl="https://raw.githubusercontent.com/zeroalpha/Game-Server-Configs/feature/tsserver"
 	for config in "${array_configs[@]}"; do
 		fn_fetch_file "${githuburl}/${gamedirname}/${config}" "${lgsmdir}/config-default/config-game" "${config}" "nochmodx" "norun" "forcedl" "nomd5"
 	done
