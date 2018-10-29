@@ -59,7 +59,7 @@ currentopt=( "${cmd_start[@]}" "${cmd_stop[@]}" "${cmd_restart[@]}" "${cmd_monit
 currentopt+=( "${cmd_update_linuxgsm[@]}" )
 
 # Exclude noupdate games here
-if [ "${gamename}" != "Battlefield: 1942" ]&&[ "${engine}" != "quake" ]&&[ "${engine}" != "idtech2" ]&&[ "${engine}" != "idtech3" ]&&[ "${engine}" != "iw2.0" ]&&[ "${engine}" != "iw3.0" ]&&[ "${gamename}" != "San Andreas Multiplayer" ]; then
+if [ "${gamename}" != "Battlefield: 1942" ]&&[ "${engine}" != "quake" ]&&[ "${engine}" != "idtech2" ]&&[ "${engine}" != "idtech3" ]&&[ "${engine}" != "iw2.0" ]&&[ "${engine}" != "iw3.0" ]&&[ "${gamename}" != "San Andreas Multiplayer" ]&&[ "${gamename}" != "The Specialists" ]; then
 	currentopt+=( "${cmd_update[@]}" )
 	# force update for SteamCMD only or MTA
 	if [ -n "${appid}" ]||[ "${gamename}" == "Multi Theft Auto" ]; then
